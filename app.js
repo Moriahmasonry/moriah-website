@@ -28,7 +28,7 @@ form?.addEventListener('submit', async e => {
  if(!form.reportValidity()) return;
  if(!form.querySelector('input[name="service"]:checked')){status.textContent='Please select a service, or choose Not sure / Other.';form.querySelector('[name="service"]').focus();return;}
  const fields=new FormData(form);
- const payload={name:fields.get('name'),email:fields.get('email'),phone:fields.get('phone'),address:fields.get('address'),services:fields.getAll('service').join(', '),_subject:'New estimate request — Moriah Masonry Works'};
+ const payload={name:fields.get('name'),email:fields.get('email'),phone:fields.get('phone'),address:fields.get('address'),services:fields.getAll('service').join(', '),project_description:fields.get('project_description') || '',_subject:'New estimate request — Moriah Masonry Works'};
  button.disabled=true;button.textContent='Sending…';form.setAttribute('aria-busy','true');status.textContent='Sending your estimate request…';
  try{
  const r=await fetch(FORM_ENDPOINT,{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify(payload)});
